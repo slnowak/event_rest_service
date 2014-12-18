@@ -21,6 +21,10 @@ class Event(object):
     def __hash__(self, *args, **kwargs):
         return self.__dict__.__hash__
 
+    def json_repr(self):
+        return {"Created at": str(self.creation_time),
+                "Message": self.content, }
+
 
 def item_in_collection(item, collection):
     return item in collection
