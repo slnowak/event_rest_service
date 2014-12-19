@@ -22,7 +22,7 @@ class JsonEncoder(object):
         return json.dumps({"Events": self._convert_to_serializable_format(events)}, sort_keys=True, indent=2)
 
     def _convert_to_serializable_format(self, events):
-        return [event.json_repr() for event in events]
+        return [event.simple_json_repr() for event in events]
 
     def _check_argument_type(self, events):
         if not isinstance(events, list):

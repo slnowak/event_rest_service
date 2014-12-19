@@ -1,3 +1,5 @@
+from pymongo import MongoClient
+from service.infra.mongo_repo import MongoRepository
 from service.infra.repositories import InMemoryRepository
 from service.parsing.event_parsing import EventParser
 from service.parsing.json_manipulation import MessageRetriever, JsonEncoder
@@ -9,7 +11,14 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-repository = InMemoryRepository()
+# repository = InMemoryRepository()
+def prepare_mongo_repository():
+    client = MongoClient('localhost', 27017)
+    database = client.test_database
+    return MongoRepository(database)
+
+
+repository = prepare_mongo_repository()
 event_parser = EventParser()
 message_retriever = MessageRetriever()
 json_encoder = JsonEncoder()
@@ -21,7 +30,7 @@ def create_event_log():
     event = event_parser.parse(message)
     repository.add_event(event)
 
-    return jsonify({'event': event.json_repr()}), 201
+    return jsonify({'event': event.simple_json_repr()}), 201
 
 
 @app.route('/events/', methods=['GET'])
