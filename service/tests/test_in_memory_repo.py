@@ -1,7 +1,7 @@
 import datetime
 from unittest import TestCase
 from unittest.mock import Mock
-from service.infra.repositories import InMemoryRepository
+from service.infra.in_memory_repo import InMemoryRepository
 from service.model.event import Event
 
 __author__ = 'novy'
