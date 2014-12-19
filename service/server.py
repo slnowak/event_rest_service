@@ -1,7 +1,9 @@
 from pymongo import MongoClient
+
 from service.infra.mongo_repo import MongoRepository
 from service.parsing.event_parsing import EventParser
 from service.parsing.json_manipulation import MessageRetriever, JsonEncoder
+
 
 __author__ = 'novy'
 

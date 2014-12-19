@@ -1,5 +1,7 @@
 import pymongo
+
 from service.model.event import Event
+
 
 __author__ = 'novy'
 

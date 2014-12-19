@@ -1,7 +1,9 @@
 from unittest.case import TestCase
 import datetime
+
 from service.model.event import Event
 from service.parsing.json_manipulation import JsonEncoder, MessageRetriever
+
 
 __author__ = 'novy'
 
@@ -34,13 +36,11 @@ class JsonEncodingTest(TestCase):
         ]
 
     def test_encode_event_collection_properly_into_json(self):
-
         actual_json_repr = self.object_under_test.encode(self.events)
 
         self.assertEqual(expected_properly_parsed_json, actual_json_repr)
 
     def test_encoding_empty_list(self):
-
         actual_json_string = self.object_under_test.encode([])
 
         self.assertEqual(expected_empty_json_string, actual_json_string)

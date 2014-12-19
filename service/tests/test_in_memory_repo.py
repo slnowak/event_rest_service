@@ -1,8 +1,10 @@
 import datetime
 from unittest import TestCase
 from unittest.mock import Mock
+
 from service.infra.in_memory_repo import InMemoryRepository
 from service.model.event import Event
+
 
 __author__ = 'novy'
 
@@ -35,7 +37,7 @@ class TestInMemoryRepository(TestCase):
     def test_should_return_recent_ten_events(self):
         expected_result = [self.events[12], self.events[11], self.events[10], self.events[9], self.events[8],
                            self.events[7], self.events[6], self.events[5], self.events[4], self.events[3],
-                           ]
+        ]
 
         actual_result = self.object_under_test.get_latest()
 
@@ -44,7 +46,7 @@ class TestInMemoryRepository(TestCase):
     def test_should_return_exactly_ten_recent_events_searching_by_category_given_more_matching(self):
         expected_result = [self.events[12], self.events[11], self.events[10], self.events[8], self.events[7],
                            self.events[6], self.events[5], self.events[4], self.events[3], self.events[2]
-                           ]
+        ]
 
         actual_result = self.object_under_test.get_latest_by_category("default")
 
@@ -53,7 +55,7 @@ class TestInMemoryRepository(TestCase):
     def test_should_return_exactly_ten_recent_events_searching_by_person_given_more_matching(self):
         expected_result = [self.events[12], self.events[11], self.events[10], self.events[8], self.events[7],
                            self.events[6], self.events[5], self.events[4], self.events[3], self.events[2]
-                           ]
+        ]
 
         actual_result = self.object_under_test.get_latest_by_person("all")
 
@@ -62,7 +64,7 @@ class TestInMemoryRepository(TestCase):
     def test_should_return_less_than_ten_events_searching_by_category_given_less_matching(self):
         expected_result = [self.events[12], self.events[7], self.events[6],
                            self.events[4], self.events[2], self.events[0]
-                           ]
+        ]
 
         actual_result = self.object_under_test.get_latest_by_category("category1")
 
@@ -76,9 +78,8 @@ class TestInMemoryRepository(TestCase):
         self.assertEqual(actual_result, expected_result)
 
     def test_should_return_empty_list_given_not_matching_category(self):
-
         self.assertEqual(self.object_under_test.get_latest_by_category("fake category"), [])
 
     def test_should_return_empty_list_given_not_matching_person(self):
-        print (self.events[0].matches_category("category1"))
+        print(self.events[0].matches_category("category1"))
         self.assertEqual(self.object_under_test.get_latest_by_person("fake person"), [])
