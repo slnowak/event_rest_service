@@ -14,8 +14,6 @@ event_parser = EventParser()
 message_retriever = MessageRetriever()
 json_encoder = JsonEncoder()
 
-# todo:implement
-
 
 @app.route('/events/', methods=['POST'])
 def create_event_log():
@@ -28,17 +26,20 @@ def create_event_log():
 
 @app.route('/events/', methods=['GET'])
 def get_recent_event_logs():
-    pass
+    events = repository.get_latest()
+    return json_encoder.encode(events)
 
 
 @app.route('/events/category/<string:category>', methods=['GET'])
 def get_recent_event_logs_by_category(category):
-    pass
+    events = repository.get_latest_by_category(category)
+    return json_encoder.encode(events)
 
 
-@app.route('/events/category/<person>', methods=['GET'])
-def get_recent_event_logs_by_category(person):
-    pass
+@app.route('/events/people/<person>', methods=['GET'])
+def get_recent_event_logs_by_person(person):
+    events = repository.get_latest_by_person(person)
+    return json_encoder.encode(events)
 
 
 if __name__ == '__main__':
